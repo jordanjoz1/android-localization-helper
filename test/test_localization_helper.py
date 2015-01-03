@@ -15,7 +15,7 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         self.cwd = os.getcwd()
 
         # get absolute path to resource directory
-        self.res_path = os.path.abspath('./res')
+        self.res_path = os.path.abspath('./test/res')
 
         # get default strings tree
         self.tree = localizr.getDefaultTree(self.res_path)
