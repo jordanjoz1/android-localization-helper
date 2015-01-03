@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<resources>
+	<string name="test_1">我的议程</string>
+	<string name="test_2">刷新</string>
+	<string name="test_3">搜索</string>
+	<string name="test_4">加入</string>
+</resources>
