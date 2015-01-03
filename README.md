@@ -16,10 +16,10 @@ Coming soon:
 * Ability to install with `pip`
 
 ## Usage - general
-Run the script with the path to you're project's `res/` directory. For example,
+Navigate to your project's `res/` directory and run the script:
 
 ```
-python ./translation_helper.py ./src/main/res
+python ./translation_helper.py
 ```
 
 As in the [sample output](./sample_output), the script will create a directory called **to_translate** with files for the strings that need to translated in each language.  If a language has translations for all the strings in the default language, then it won't get an output file.  Now you know exactly what translations you need to add for each language, and you can send them out for translation.
@@ -28,6 +28,16 @@ As in the [sample output](./sample_output), the script will create a directory c
 
 #### -h, --help
 Prints help message.
+
+#### --res
+Path to the app's /res folder. Like, `./main/res`
+
+By default assumes the current directory
+
+#### --output
+Output directory path (directory will be created automatically). Like, `~/Desktop`
+
+By default creates *to_translate* folder in the current directory.
 
 #### --clean
 Clean the existing `string.xml` files for each language.  This will remove strings that are in the localized language but not in the default language (they presumably got removed from the default langauge).  It will also sort the strings so that they are in the same order as the default language.
