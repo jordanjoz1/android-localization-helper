@@ -24,7 +24,7 @@ import argparse
 
 ORIG_DIR = os.getcwd()
 
-def main(res_path, clean=False):
+def main(res_path, clean, out_path):
     
     # go to the resource directory and save the whole path
     os.chdir(res_path)
@@ -46,8 +46,8 @@ def main(res_path, clean=False):
         cleanTranslationFiles(langs, keys, res_path)
 
     # write files for missing keys for each language
-    createOutputDir()
-    writeMissingKeysToFiles(langs, tags, missing)
+    createOutputDir(out_path)
+    writeMissingKeysToFiles(langs, tags, missing, out_path)
 
 def getDefaultTree(res_path):
     os.chdir(res_path)
@@ -55,16 +55,16 @@ def getDefaultTree(res_path):
     ET.register_namespace('tools', "http://schemas.android.com/tools")
     return ET.parse('strings.xml')
 
-def createOutputDir():
+def createOutputDir(out_path):
     # create output directory
     os.chdir(ORIG_DIR)
-    if not os.path.exists('to_translate'):
-        os.makedirs('to_translate')        
+    if not os.path.exists(out_path):
+        os.makedirs(out_path)        
 
-def writeMissingKeysToFiles(langs, tags, missing):
+def writeMissingKeysToFiles(langs, tags, missing, out_path):
     # write xml files for missing strings for each language
     os.chdir(ORIG_DIR)
-    os.chdir('to_translate')
+    os.chdir(out_path)
     for lang in langs:
         # skip language if it's not missing any strings
         if (len(missing[lang]) == 0):
@@ -171,11 +171,17 @@ def getTagsFromTree(tree):
 if __name__ == '__main__':
     # parse arguments and do error checking
     parser = argparse.ArgumentParser()
-    parser.add_argument("res_dir", help="path to the /res directory")
+    parser.add_argument('--res',
+                        help='Path to the app\'s /res directory. If not specifies it assumes current directory',
+                        default='.')
+    parser.add_argument('--output',
+                        help='Path to the output directory. If not specifies it will create a folder called to_translate in the current directory',
+                        default='./to_translate')
     parser.add_argument("--clean", help="re-orders and removes strings in the translation files to match the default string ordering",
                     action="store_true")
+
     args = parser.parse_args()
 
     # run main
-    main(args.res_dir, clean=args.clean)
+    main(args.res, args.clean, args.output)
 
