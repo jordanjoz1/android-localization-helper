@@ -32,26 +32,26 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         missing = localizr.findMissingKeys(keys, self.LANGS, self.res_path)
 
         # write out the files
-        localizr.writeMissingKeysToFiles(self.LANGS, tags, missing, './to_translate')
+        localizr.writeMissingKeysToFiles(self.LANGS, tags, missing, './test/to_translate')
 
         # verify that no German strings exist
         os.chdir(self.cwd)
-        self.assertFalse(os.path.exists('./to_translate/strings_to_trans-de.xml'))
+        self.assertFalse(os.path.exists('./test/to_translate/strings_to_trans-de.xml'))
 
         # verify that spanish strings seem correct
         os.chdir(self.cwd)
-        self.assertTrue(os.path.exists('./to_translate/strings_to_trans-es.xml'))
-        self.assertTrue(filecmp.cmp('./test_to_translate/strings_to_trans-es.xml', './to_translate/strings_to_trans-es.xml'))
+        self.assertTrue(os.path.exists('./test/to_translate/strings_to_trans-es.xml'))
+        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-es.xml', './test/to_translate/strings_to_trans-es.xml'))
 
         # verify that french strings seem correct
         os.chdir(self.cwd)
-        self.assertTrue(os.path.exists('./to_translate/strings_to_trans-fr.xml'))
-        self.assertTrue(filecmp.cmp('./test_to_translate/strings_to_trans-fr.xml', './to_translate/strings_to_trans-fr.xml'))
+        self.assertTrue(os.path.exists('./test/to_translate/strings_to_trans-fr.xml'))
+        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-fr.xml', './test/to_translate/strings_to_trans-fr.xml'))
 
         # verify that traditional chinese strings seem correct
         os.chdir(self.cwd)
-        self.assertTrue(os.path.exists('./to_translate/strings_to_trans-zh-rTW.xml'))
-        self.assertTrue(filecmp.cmp('./test_to_translate/strings_to_trans-zh-rTW.xml', './to_translate/strings_to_trans-zh-rTW.xml'))
+        self.assertTrue(os.path.exists('./test/to_translate/strings_to_trans-zh-rTW.xml'))
+        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-zh-rTW.xml', './test/to_translate/strings_to_trans-zh-rTW.xml'))
 
     def test_getLanguageTrees(self):
         trees = localizr.getLanguageTrees(self.LANGS, self.res_path)
@@ -71,19 +71,19 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
 
         # verify that German strings are correctly sorted
         os.chdir(self.cwd)
-        self.assertTrue(filecmp.cmp('./res/values-de/strings.xml', './test_cleaned/res/values-de/strings.xml'))
+        self.assertTrue(filecmp.cmp('./test/res/values-de/strings.xml', './test_cleaned/res/values-de/strings.xml'))
 
         # verify that empty spanish strings stays empty
         os.chdir(self.cwd)
-        self.assertTrue(filecmp.cmp('./res/values-es/strings.xml', './test_cleaned/res/values-es/strings.xml'))
+        self.assertTrue(filecmp.cmp('./test/res/values-es/strings.xml', './test/test_cleaned/res/values-es/strings.xml'))
 
         # verify that extra french string is removed
         os.chdir(self.cwd)
-        self.assertTrue(filecmp.cmp('./res/values-fr/strings.xml', './test_cleaned/res/values-fr/strings.xml'))
+        self.assertTrue(filecmp.cmp('./test/res/values-fr/strings.xml', './test/test_cleaned/res/values-fr/strings.xml'))
 
         # verify that extra chinese string is removed and everything else is the same
         os.chdir(self.cwd)
-        self.assertTrue(filecmp.cmp('./res/values-zh-rTW/strings.xml', './test_cleaned/res/values-zh-rTW/strings.xml'))
+        self.assertTrue(filecmp.cmp('./test/res/values-zh-rTW/strings.xml', './test/test_cleaned/res/values-zh-rTW/strings.xml'))
 
 
     def test_getTagByKeyName(self):
