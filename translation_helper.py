@@ -21,6 +21,7 @@ import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
 import codecs
 import argparse
+import six
 
 ORIG_DIR = os.getcwd()
 
@@ -121,7 +122,7 @@ Return a pretty-printed XML string for the Element.
 def prettify(elem):
     rough_string = ET.tostring(elem, encoding='UTF-8')
     reparsed = minidom.parseString(rough_string)
-    return u'\n'.join([line for line in reparsed.toprettyxml(indent='\t').split('\n') if line.strip()])
+    return six.u('\n').join([line for line in reparsed.toprettyxml(indent='\t').split('\n') if line.strip()])
 
 
 def findMissingKeys(keys, langs, res_path):
@@ -141,7 +142,7 @@ def getLangsFromDir(res_path):
     os.chdir(res_path)
     langs = []
     for x in os.walk('.'):
-        if x[0].startswith('./values-'):
+        if x[0][2:].startswith('values-'):
             code = [x[0][9:]][0]
             if (len(code) == 2) or (len(code) == 6 and code[2] == '-'):
                 langs += [code]
