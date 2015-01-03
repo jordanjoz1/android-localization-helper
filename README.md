@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/jordanjoz1/android-localization-helper.svg?branch=master)](https://travis-ci.org/jordanjoz1/android-localization-helper)
+
 android-localization-helper
 ===========================
 
