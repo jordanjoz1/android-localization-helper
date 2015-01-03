@@ -32,7 +32,7 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         missing = localizr.findMissingKeys(keys, self.LANGS, self.res_path)
 
         # write out the files
-        localizr.writeMissingKeysToFiles(self.LANGS, tags, missing)
+        localizr.writeMissingKeysToFiles(self.LANGS, tags, missing, './to_translate')
 
         # verify that no German strings exist
         os.chdir(self.cwd)
@@ -66,7 +66,7 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         keys = localizr.getKeysFromTree(self.tree)
 
         # clean the fiels
-        localizr.createOutputDir()
+        localizr.createOutputDir('./to_translate')
         localizr.cleanTranslationFiles(self.LANGS, keys, self.res_path)
 
         # verify that German strings are correctly sorted
