@@ -32,26 +32,27 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         missing = localizr.findMissingKeys(keys, self.LANGS, self.res_path)
 
         # write out the files
+        localizr.createOutputDir('./test/to_translate')
         localizr.writeMissingKeysToFiles(self.LANGS, tags, missing, './test/to_translate')
 
         # verify that no German strings exist
         os.chdir(self.cwd)
-        self.assertFalse(os.path.exists('./to_translate/strings_to_trans-de.xml'))
+        self.assertFalse(os.path.exists('./test/to_translate/strings_to_trans-de.xml'))
 
         # verify that spanish strings seem correct
         os.chdir(self.cwd)
-        self.assertTrue(os.path.exists('./to_translate/strings_to_trans-es.xml'))
-        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-es.xml', './to_translate/strings_to_trans-es.xml'))
+        self.assertTrue(os.path.exists('./test/to_translate/strings_to_trans-es.xml'))
+        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-es.xml', './test/to_translate/strings_to_trans-es.xml'))
 
         # verify that french strings seem correct
         os.chdir(self.cwd)
-        self.assertTrue(os.path.exists('./to_translate/strings_to_trans-fr.xml'))
-        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-fr.xml', './to_translate/strings_to_trans-fr.xml'))
+        self.assertTrue(os.path.exists('./test/to_translate/strings_to_trans-fr.xml'))
+        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-fr.xml', './test/to_translate/strings_to_trans-fr.xml'))
 
         # verify that traditional chinese strings seem correct
         os.chdir(self.cwd)
-        self.assertTrue(os.path.exists('./to_translate/strings_to_trans-zh-rTW.xml'))
-        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-zh-rTW.xml', './to_translate/strings_to_trans-zh-rTW.xml'))
+        self.assertTrue(os.path.exists('./test/to_translate/strings_to_trans-zh-rTW.xml'))
+        self.assertTrue(filecmp.cmp('./test/test_to_translate/strings_to_trans-zh-rTW.xml', './test/to_translate/strings_to_trans-zh-rTW.xml'))
 
     def test_getLanguageTrees(self):
         trees = localizr.getLanguageTrees(self.LANGS, self.res_path)
