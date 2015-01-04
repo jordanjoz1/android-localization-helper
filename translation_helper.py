@@ -18,10 +18,8 @@ code
 import sys
 import os
 import xml.etree.ElementTree as ET
-import xml.dom.minidom as minidom
 import codecs
 import argparse
-import six
 
 ORIG_DIR = os.getcwd()
 
@@ -71,6 +69,7 @@ def getDefaultTree(res_path):
     os.chdir(res_path)
     os.chdir('values')
     ET.register_namespace('tools', "http://schemas.android.com/tools")
+    ET.register_namespace('xliff', "urn:oasis:names:tc:xliff:document:1.2")
     return ET.parse('strings.xml')
 
 def createOutputDir(out_path):
@@ -134,12 +133,23 @@ def getTagByKeyName(tags, key):
             return tag
 
 '''
-Return a pretty-printed XML string for the Element.
+Return a "pretty-printed" XML string for the Element.
+
+The element tree tostring() preserves the formatting of each individual tag,
+but it can have some funky behavior since we aren't including all the tags
+we read from the original tree.  On Python 3 tostring() does not add the XML
+declaration, so we need to add that manually.
 '''
 def prettify(elem):
-    rough_string = ET.tostring(elem, encoding='UTF-8')
-    reparsed = minidom.parseString(rough_string)
-    return six.u('\n').join([line for line in reparsed.toprettyxml(indent='\t').split('\n') if line.strip()])
+    output = ET.tostring(elem, encoding='UTF-8').decode('utf-8')
+
+    # make sure we add the xml declaration... stupid python 3
+    if not output.startswith('<?xml'):
+        output = "<?xml version='1.0' encoding='UTF-8'?>\n" + output
+
+    # fix first string not indenting
+    output = output.replace('><string', '>\n    <string')
+    return output
 
 
 def findMissingKeys(keys, langs, res_path):
