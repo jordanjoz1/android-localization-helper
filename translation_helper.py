@@ -150,7 +150,7 @@ def prettify(elem):
                 output += TAB  
         
         output += elem.decode('utf-8')
-    return output.decode('utf-8')
+    return output
 
 
 def findMissingKeys(keys, langs, res_path):
