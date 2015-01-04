@@ -142,7 +142,7 @@ def prettify(elem):
     output = ''
     for i in range(len(elems)):
         elem = elems[i].decode('utf-8')
-        prev1 = elems[i-2].decode('utf-8')
+        prev1 = elems[i-1].decode('utf-8')
         prev2 = elems[i-2].decode('utf-8')
         # make sure strings and plurals are indented properly 
         # (everything else should be fine since it is nested within those tags)
