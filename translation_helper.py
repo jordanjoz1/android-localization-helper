@@ -155,14 +155,30 @@ def findMissingKeys(keys, langs, res_path):
         missing[lang] = keys_miss
     return missing
 
+'''
+Supported langauge directories follow one of two patterns:
+1) values-**
+2) values-**-***
+
+returns code for language or None if not a language directory
+'''
+def getLangDir(dir_name):
+	if dir_name[2:].startswith('values-'):
+		code = [dir_name[9:]][0]
+		if (len(code) == 2) or (len(code) == 6 and code[2] == '-'):
+			return code
+			
+	# not a language dir
+	return None
+	
+	
 def getLangsFromDir(res_path):
     os.chdir(res_path)
     langs = []
     for x in os.walk('.'):
-        if x[0][2:].startswith('values-'):
-            code = [x[0][9:]][0]
-            if (len(code) == 2) or (len(code) == 6 and code[2] == '-'):
-                langs += [code]
+		code = getLangDir(x[0])
+		if code is not None:
+			langs.append(code)		
     return langs
 
 def getKeysFromTree(tree):
