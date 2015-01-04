@@ -1,4 +1,11 @@
-<?xml version="1.0" ?>
-<resources>
-	<string name="test_5">Test 5</string>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="test_5">Test 5</string>
+    
+    
+    <plurals name="plurals_test">
+        <item quantity="one"><xliff:g id="number_of_awesomes">%1$d</xliff:g> available awesome</item>
+        <item quantity="other"><xliff:g id="number_of_awesomes">%1$d</xliff:g> available awesomes</item>
+    </plurals>
+
 </resources>
