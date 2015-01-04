@@ -18,7 +18,6 @@ code
 import sys
 import os
 import xml.etree.ElementTree as ET
-import xml.dom.minidom as minidom
 import codecs
 import argparse
 import six
@@ -71,6 +70,7 @@ def getDefaultTree(res_path):
     os.chdir(res_path)
     os.chdir('values')
     ET.register_namespace('tools', "http://schemas.android.com/tools")
+    ET.register_namespace('xliff', "urn:oasis:names:tc:xliff:document:1.2")
     return ET.parse('strings.xml')
 
 def createOutputDir(out_path):
@@ -137,9 +137,22 @@ def getTagByKeyName(tags, key):
 Return a pretty-printed XML string for the Element.
 '''
 def prettify(elem):
-    rough_string = ET.tostring(elem, encoding='UTF-8')
-    reparsed = minidom.parseString(rough_string)
-    return six.u('\n').join([line for line in reparsed.toprettyxml(indent='\t').split('\n') if line.strip()])
+    TAB = '    '
+    elems = ET.tostringlist(elem, encoding='UTF-8')
+    output = six.u('')
+    print elems
+    for i in range(len(elems)):
+        elem = elems[i] 
+        # make sure strings and plurals are indented properly 
+        # (everything else should be fine since it is nested within those tags)
+        if elem == '<string' or elem == '<plurals':
+            if not elems[i-2].startswith('\n') and not elems[i-1].startswith('\n'):
+                output += '\n'
+            if not elems[i-1].endswith(TAB):
+                output += TAB  
+        
+        output += six.u(elem)
+    return output
 
 
 def findMissingKeys(keys, langs, res_path):

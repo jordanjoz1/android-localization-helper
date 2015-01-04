@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="test_5">Kennwort zurücksetzen</string>
     <string name="test_4">Anmelden</string>
     <string name="test_3">Suchen</string>
     <string name="test_2">Aktualisieren</string>
     <string name="test_1">Meine Agenda</string>
+    
+    <plurals name="plurals_test">
+        <item quantity="one"><xliff:g id="number_of_awesomes">%1$d</xliff:g> verfügbare Sitzung</item>
+        <item quantity="other"><xliff:g id="number_of_awesomes">%1$d</xliff:g> verfügbare Sitzungen</item>
+    </plurals>
+    
 </resources>

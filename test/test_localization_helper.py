@@ -110,13 +110,13 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         self.assertEqual(missing['de'], [])
 
         # verify that Spanish is missing all tags
-        self.assertEqual(missing['es'], ['test_1', 'test_2', 'test_3', 'test_4', 'test_5'])
+        self.assertEqual(missing['es'], ['test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'plurals_test'])
 
         # verify that French is missing all tags (even though it has an extra tag)
-        self.assertEqual(missing['fr'], ['test_1', 'test_2', 'test_3', 'test_4', 'test_5'])
+        self.assertEqual(missing['fr'], ['test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'plurals_test'])
 
         # verify that traditional Chinese is only missing one tag
-        self.assertEqual(missing['zh-rTW'], ['test_5'])
+        self.assertEqual(missing['zh-rTW'], ['test_5', 'plurals_test'])
 
     '''
     ' only get language directory in the values-** and values-**-*** format
@@ -136,12 +136,12 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
     '''
     def test_getKeyFromTree(self):
         keys = localizr.getKeysFromTree(self.tree)
-        self.assertEqual(keys, ['test_1', 'test_2', 'test_3', 'test_4', 'test_5'])
+        self.assertEqual(keys, ['test_1', 'test_2', 'test_3', 'test_4', 'test_5', 'plurals_test'])
 
     def test_getTagsFromTree(self):
         tags = localizr.getTagsFromTree(self.tree)
         # should return all seven tags
-        self.assertEqual(len(tags), 7)
+        self.assertEqual(len(tags), 8)
 
 
         
