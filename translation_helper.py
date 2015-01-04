@@ -125,7 +125,6 @@ def cleanTranslationFiles(langs, keys, res_path):
         os.chdir(res_path)
         os.chdir('values-%s' % (lang))
         f = codecs.open('strings.xml', 'wb', 'utf-8')
-        print(prettify(root))
         f.write(prettify(root))
 
 def getTagByKeyName(tags, key):
@@ -137,24 +136,14 @@ def getTagByKeyName(tags, key):
 Return a pretty-printed XML string for the Element.
 '''
 def prettify(elem):
-    TAB = '    '
-    elems = ET.tostringlist(elem, encoding='UTF-8')
-    output = ''
-    for i in range(len(elems)):
-        elem = elems[i].decode('utf-8')
-        if i > 0:
-            prev1 = elems[i-1].decode('utf-8')
-        if i > 1:
-            prev2 = elems[i-2].decode('utf-8')
-        # make sure strings and plurals are indented properly 
-        # (everything else should be fine since it is nested within those tags)
-        if elem == '<string' or elem == '<plurals':
-            if not prev2.startswith('\n') and not prev1.startswith('\n'):
-                output += '\n'
-            if not prev1.endswith(TAB):
-                output += TAB  
-        
-        output += elem
+    output = ET.tostring(elem, encoding='UTF-8').decode('utf-8')
+
+    # make sure we add the xml declaration... stupid python 3
+    if not output.startswith('<?xml'):
+        output = "<?xml version='1.0' encoding='UTF-8'?>\n" + output
+
+    # fix first string not indenting
+    output = output.replace('><string', '>\n    <string')
     return output
 
 
