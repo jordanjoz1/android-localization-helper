@@ -25,7 +25,10 @@ import six
 
 ORIG_DIR = os.getcwd()
 
-def main(res_path, clean, out_path):
+def main():
+
+    # parse command line arguments
+    res_path, clean, out_path = parseArgs()
     
     # go to the resource directory and save the whole path
     os.chdir(res_path)
@@ -50,6 +53,20 @@ def main(res_path, clean, out_path):
     createOutputDir(out_path)
     writeMissingKeysToFiles(langs, tags, missing, out_path)
 
+def parseArgs():
+    # parse arguments and do error checking
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--res',
+                        help='Path to the app\'s /res directory. If not specifies it assumes current directory',
+                        default='.')
+    parser.add_argument('--output',
+                        help='Path to the output directory. If not specifies it will create a folder called to_translate in the current directory',
+                        default='./to_translate')
+    parser.add_argument("--clean", help="re-orders and removes strings in the translation files to match the default string ordering",
+                    action="store_true")
+    args = parser.parse_args()
+    return args.res, args.clean, args.output
+    
 def getDefaultTree(res_path):
     os.chdir(res_path)
     os.chdir('values')
@@ -170,19 +187,5 @@ def getTagsFromTree(tree):
 
 
 if __name__ == '__main__':
-    # parse arguments and do error checking
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--res',
-                        help='Path to the app\'s /res directory. If not specifies it assumes current directory',
-                        default='.')
-    parser.add_argument('--output',
-                        help='Path to the output directory. If not specifies it will create a folder called to_translate in the current directory',
-                        default='./to_translate')
-    parser.add_argument("--clean", help="re-orders and removes strings in the translation files to match the default string ordering",
-                    action="store_true")
-
-    args = parser.parse_args()
-
-    # run main
-    main(args.res, args.clean, args.output)
+    main()
 
