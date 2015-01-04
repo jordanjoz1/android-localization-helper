@@ -125,7 +125,7 @@ def cleanTranslationFiles(langs, keys, res_path):
         os.chdir(res_path)
         os.chdir('values-%s' % (lang))
         f = codecs.open('strings.xml', 'wb', 'utf-8')
-        print prettify(root)
+        print(prettify(root))
         f.write(prettify(root))
 
 def getTagByKeyName(tags, key):
