@@ -142,12 +142,14 @@ def prettify(elem):
     output = ''
     for i in range(len(elems)):
         elem = elems[i].decode('utf-8')
+        prev1 = elems[i-2].decode('utf-8')
+        prev2 = elems[i-2].decode('utf-8')
         # make sure strings and plurals are indented properly 
         # (everything else should be fine since it is nested within those tags)
         if elem == '<string' or elem == '<plurals':
-            if not elems[i-2].startswith('\n') and not elems[i-1].startswith('\n'):
+            if not prev2.startswith('\n') and not prev1.startswith('\n'):
                 output += '\n'
-            if not elems[i-1].endswith(TAB):
+            if not prev1.endswith(TAB):
                 output += TAB  
         
         output += elem
