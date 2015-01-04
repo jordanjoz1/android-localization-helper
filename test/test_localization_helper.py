@@ -121,6 +121,12 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
     '''
     ' only get language directory in the values-** and values-**-*** format
     '''
+    def test_getLangDir(self):
+        self.assertEqual(localizr.getLangDir('./drawable'), None)
+        self.assertEqual(localizr.getLangDir('./values-hdpi'), None)
+        self.assertEqual(localizr.getLangDir('./values-es'), 'es')
+        self.assertEqual(localizr.getLangDir('./values-zh-rTW'), 'zh-rTW')
+        
     def test_getLangsFromDir(self):
         langs = localizr.getLangsFromDir(self.res_path)
         self.assertEqual(set(langs), set(self.LANGS))
