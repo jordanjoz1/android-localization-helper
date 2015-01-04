@@ -149,7 +149,7 @@ def prettify(elem):
             if not elems[i-1].endswith(TAB):
                 output += TAB  
         
-        output += elem
+        output += elem.decode('utf-8')
     return output.decode('utf-8')
 
 
