@@ -186,7 +186,7 @@ def getKeysFromTree(tree):
     keys = []
     for child in root:
         # ignore strings that can't be translated
-        if not child.get('translatable', default=True):
+        if child.get('translatable', default='true') == 'false':
             continue
         # ignore providers
         if (child.get('name').startswith('provider.')):
