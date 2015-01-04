@@ -58,5 +58,6 @@ Clean the existing `string.xml` files for each language.  This will remove strin
 
 
 ## Release History
+* 2015-01-04   v0.1.1   xliff namespace support, better indentation handling
 * 2015-01-03   v0.1.0   Initial release
 
