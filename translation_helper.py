@@ -163,22 +163,22 @@ Supported langauge directories follow one of two patterns:
 returns code for language or None if not a language directory
 '''
 def getLangDir(dir_name):
-	if dir_name[2:].startswith('values-'):
-		code = [dir_name[9:]][0]
-		if (len(code) == 2) or (len(code) == 6 and code[2] == '-'):
-			return code
-			
-	# not a language dir
-	return None
-	
-	
+    if dir_name[2:].startswith('values-'):
+        code = [dir_name[9:]][0]
+        if (len(code) == 2) or (len(code) == 6 and code[2] == '-'):
+            return code
+            
+    # not a language dir
+    return None
+    
+    
 def getLangsFromDir(res_path):
     os.chdir(res_path)
     langs = []
     for x in os.walk('.'):
-		code = getLangDir(x[0])
-		if code is not None:
-			langs.append(code)		
+        code = getLangDir(x[0])
+        if code is not None:
+            langs.append(code)		
     return langs
 
 def getKeysFromTree(tree):
