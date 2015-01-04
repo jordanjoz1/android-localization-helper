@@ -20,7 +20,6 @@ import os
 import xml.etree.ElementTree as ET
 import codecs
 import argparse
-import six
 
 ORIG_DIR = os.getcwd()
 
@@ -139,8 +138,7 @@ Return a pretty-printed XML string for the Element.
 def prettify(elem):
     TAB = '    '
     elems = ET.tostringlist(elem, encoding='UTF-8')
-    output = six.u('')
-    print elems
+    output = ''
     for i in range(len(elems)):
         elem = elems[i] 
         # make sure strings and plurals are indented properly 
@@ -151,8 +149,8 @@ def prettify(elem):
             if not elems[i-1].endswith(TAB):
                 output += TAB  
         
-        output += six.u(elem)
-    return output
+        output += elem
+    return output.decode('utf-8')
 
 
 def findMissingKeys(keys, langs, res_path):
