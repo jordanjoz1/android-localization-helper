@@ -125,6 +125,7 @@ def cleanTranslationFiles(langs, keys, res_path):
         os.chdir(res_path)
         os.chdir('values-%s' % (lang))
         f = codecs.open('strings.xml', 'wb', 'utf-8')
+        print prettify(root)
         f.write(prettify(root))
 
 def getTagByKeyName(tags, key):
@@ -140,7 +141,7 @@ def prettify(elem):
     elems = ET.tostringlist(elem, encoding='UTF-8')
     output = ''
     for i in range(len(elems)):
-        elem = elems[i] 
+        elem = elems[i].decode('utf-8')
         # make sure strings and plurals are indented properly 
         # (everything else should be fine since it is nested within those tags)
         if elem == '<string' or elem == '<plurals':
@@ -149,7 +150,7 @@ def prettify(elem):
             if not elems[i-1].endswith(TAB):
                 output += TAB  
         
-        output += elem.decode('utf-8')
+        output += elem
     return output
 
 
