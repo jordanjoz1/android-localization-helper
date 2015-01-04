@@ -14,17 +14,29 @@ Requirements:
 * Python >= 2.7.*
 * [Standard Android project structure](https://developer.android.com/tools/projects/index.html) for localized values-* folders in `res/` folder
 
-Coming soon:
-* Ability to install with `pip`
+To install run:
+```bash
+pip install android-localization-helper
+```
 
 ## Usage - general
-Navigate to your project's `res/` directory and run the script:
+Navigate to your project's `res/` directory and run
 
 ```
-python ./translation_helper.py
+android-localization-helper
 ```
 
 As in the [sample output](./sample_output), the script will create a directory called **to_translate** with files for the strings that need to translated in each language.  If a language has translations for all the strings in the default language, then it won't get an output file.  Now you know exactly what translations you need to add for each language, and you can send them out for translation.
+
+You can change the output folder
+```
+android-localization-helper --output ~/Desktop/to_translate
+```
+
+And you can clean up your localized `strings.xml` files. This will remove strings that aren't in the default file and sort strings to match the default `strings.xml` order.
+```
+android-localization-helper --clean
+```
 
 ### Options
 
@@ -37,7 +49,7 @@ Path to the app's /res folder. Like, `./main/res`
 By default assumes the current directory
 
 #### --output
-Output directory path (directory will be created automatically). Like, `~/Desktop`
+Output directory path (directory will be created automatically). Like, `~/Desktop/to_translate`
 
 By default creates *to_translate* folder in the current directory.
 
@@ -46,5 +58,5 @@ Clean the existing `string.xml` files for each language.  This will remove strin
 
 
 ## Release History
-* 2015-01-15   v0.1.0   Initial release
+* 2015-01-03   v0.1.0   Initial release
 
