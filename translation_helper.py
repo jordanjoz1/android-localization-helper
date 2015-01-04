@@ -89,12 +89,12 @@ def writeMissingKeysToFiles(langs, tags, missing, out_path):
             continue        
 
         # create element tree for all the missing tags
-        root = ET.Element("resources")
+        root = ET.Element('resources')
         for key in missing[lang]: 
             tag = getTagByKeyName(tags, key)
             root.append(tag)
 
-        # write out the 
+        # write out the strings
         f = codecs.open('strings_to_trans-%s.xml' % (lang), 'wb', 'utf-8')
         f.write(prettify(root))
 
@@ -117,7 +117,7 @@ def cleanTranslationFiles(langs, keys, res_path):
         for key in keys:
             if key in keys_trans:
                 keys_has.append(key)
-        root = ET.Element("resources")
+        root = ET.Element('resources')
         for key in keys_has: 
             tag = getTagByKeyName(tags_trans, key)
             root.append(tag)
@@ -130,7 +130,7 @@ def cleanTranslationFiles(langs, keys, res_path):
 
 def getTagByKeyName(tags, key):
     for tag in tags:
-        if tag.attrib['name'] == key:
+        if tag.get('name') == key:
             return tag
 
 '''
@@ -186,12 +186,12 @@ def getKeysFromTree(tree):
     keys = []
     for child in root:
         # ignore strings that can't be translated
-        if ('translatable' in child.attrib.keys() and child.attrib['translatable'] == 'false'):
+        if not child.get('translatable', default=True):
             continue
         # ignore providers
-        if (child.attrib['name'].startswith('provider.')):
+        if (child.get('name').startswith('provider.')):
             continue
-        keys.append(child.attrib['name'])
+        keys.append(child.get('name'))
     return keys
 
 def getTagsFromTree(tree):
