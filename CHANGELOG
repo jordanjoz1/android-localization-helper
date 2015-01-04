@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+0.1.1 (2015-01-04)
+------------------
+
+-  Support for xliff namespace.
+-  Preserves original indentation for tags
+-  Added tests for plurals
+
 
 0.1.0 (2015-01-03)
 ------------------

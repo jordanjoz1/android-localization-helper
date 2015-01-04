@@ -133,7 +133,12 @@ def getTagByKeyName(tags, key):
             return tag
 
 '''
-Return a pretty-printed XML string for the Element.
+Return a "pretty-printed" XML string for the Element.
+
+The element tree tostring() preserves the formatting of each individual tag,
+but it can have some funky behavior since we aren't including all the tags
+we read from the original tree.  On Python 3 tostring() does not add the XML
+declaration, so we need to add that manually.
 '''
 def prettify(elem):
     output = ET.tostring(elem, encoding='UTF-8').decode('utf-8')
