@@ -1,4 +1,11 @@
-[![Build Status](https://api.travis-ci.org/jordanjoz1/android-localization-helper.svg?branch=master)](https://travis-ci.org/jordanjoz1/android-localization-helper)
+[travis-url]: http://travis-ci.org/#!/jordanjoz1/android-localization-helper
+[travis-build-image]: https://secure.travis-ci.org/jordanjoz1/android-localization-helper.png
+
+[pypi-url]: https://pypi.python.org/pypi/android-localization-helper/
+[pypi-image]: https://pypip.in/d/android-localization-helper/badge.png
+
+[![Travis build image][travis-build-image]][travis-url]
+[![PyPi download count image][pypi-image]][pypi-url]
 
 android-localization-helper
 ===========================
@@ -33,7 +40,7 @@ You can change the output folder
 android-localization-helper --output ~/Desktop/to_translate
 ```
 
-And you can clean up your localized `strings.xml` files. This will remove strings that aren't in the default file and sort strings to match the default `strings.xml` order.
+And you can clean up your localized `strings.xml` files. This will remove strings that aren't in the default file and sort strings to match the default `strings.xml` order. **Warning:** *this will change your existing localized `strings.xml` files, so make sure you have a back-up in case of any unexpected changes*
 ```
 android-localization-helper --clean
 ```
