@@ -1,11 +1,15 @@
 [travis-url]: http://travis-ci.org/#!/jordanjoz1/android-localization-helper
-[travis-build-image]: https://secure.travis-ci.org/jordanjoz1/android-localization-helper.png
+[travis-build-image]: https://secure.travis-ci.org/jordanjoz1/android-localization-helper.svg
 
-[pypi-url]: https://pypi.python.org/pypi/android-localization-helper/
-[pypi-image]: https://pypip.in/d/android-localization-helper/badge.png
+[pypi-url]: https://badge.fury.io/py/android-localization-helper
+[pypi-image]: https://badge.fury.io/py/android-localization-helper.svg
+
+[downloads-url]: https://pypi.python.org/pypi/android-localization-helper/
+[downloads-image]: https://pypip.in/d/android-localization-helper/badge.svg
 
 [![Travis build image][travis-build-image]][travis-url]
-[![PyPi download count image][pypi-image]][pypi-url]
+[![PyPi version][pypi-image]][pypi-url]
+[![PyPi download count image][downloads-image]][downloads-url]
 
 android-localization-helper
 ===========================
