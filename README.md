@@ -25,6 +25,8 @@ Requirements:
 * Python >= 2.7.*
 * [Standard Android project structure](https://developer.android.com/tools/projects/index.html) for localized values-* folders in `res/` folder
 
+![Project structure](art/project_structure.png)
+
 To install run:
 ```bash
 pip install android-localization-helper
