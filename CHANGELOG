@@ -1,6 +1,14 @@
 CHANGES
 =======
 
+0.1.2 (2015-01-05)
+------------------
+
+-  Support for more language folders
+-  Better feedback
+-  Better error handling
+
+
 0.1.1 (2015-01-04)
 ------------------
 
