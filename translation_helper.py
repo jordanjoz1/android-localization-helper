@@ -124,10 +124,7 @@ def cleanTranslationFiles(langs, keys, res_path):
         tree = trees[lang]
         keys_trans = getKeysFromTree(tree)
         tags_trans = getTagsFromTree(tree)
-        keys_has = []
-        for key in keys:
-            if key in keys_trans:
-                keys_has.append(key)
+        keys_has = intersection(keys, keys_trans)
         root = ET.Element('resources')
         for key in keys_has:
             tag = getTagByKeyName(tags_trans, key)
@@ -138,6 +135,28 @@ def cleanTranslationFiles(langs, keys, res_path):
         os.chdir('values-%s' % (lang))
         f = codecs.open('strings.xml', 'wb', 'utf-8')
         f.write(prettify(root))
+
+
+def intersection(a, b):
+    """Intersection of sets A and B
+    Don't use Python's set method since we care about the order
+    """
+    inter = []
+    for el in a:
+        if el in b:
+            inter.append(el)
+    return inter
+
+
+def difference(a, b):
+    """Result set of A - B
+    Don't use Python's set method since we care about the order
+    """
+    diff = []
+    for el in a:
+        if el not in b:
+            diff.append(el)
+    return diff
 
 
 def getTagByKeyName(tags, key):
@@ -172,25 +191,23 @@ def findMissingKeys(keys, langs, res_path):
     for lang in trees.keys():
         tree = trees[lang]
         keys_trans = getKeysFromTree(tree)
-        keys_miss = []
-        for key in keys:
-            if key not in keys_trans:
-                keys_miss.append(key)
-        missing[lang] = keys_miss
+        missing[lang] = difference(keys, keys_trans)
     return missing
 
 
 def getLangDir(dir_name):
     """
-    Supported langauge directories follow one of two patterns:
+    Supported langauge directories follow one of three patterns:
+    https://support.google.com/googleplay/android-developer/table/4419860
     1) values-**
-    2) values-**-***
-
+    2) values-**-**
+    3) values-**-***
     returns code for language or None if not a language directory
     """
     if dir_name[2:].startswith('values-'):
         code = [dir_name[9:]][0]
-        if (len(code) == 2) or (len(code) == 6 and code[2] == '-'):
+        if (len(code) == 2) or (len(code) == 5 and code[2] == '-') \
+                            or (len(code) == 6 and code[2] == '-'):
             return code
 
     # not a language dir
