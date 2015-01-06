@@ -14,7 +14,7 @@
 android-localization-helper
 ===========================
 
-Make sure that you aren't missing string translations in any language, and keep your localized strings organized.
+Python script that checks for missing string translations in your project's localized languages.
 
 If you're like us at [DoubleDutch](doubledutch.me), you occassionally lose track of what strings have and haven't been translated in each language.  Android Studio [made an awesome GUI](http://tools.android.com/recent/androidstudio087released) to help deal with this issue, but there is no easy way to export missing strings, so if you are missing more than a few strings in a language it can become a tenuous problem.
 
@@ -32,20 +32,22 @@ To install run:
 pip install android-localization-helper
 ```
 
-## Usage - general
-Navigate to your project's `res/` directory and run
+## Usage
+`cd` to your `res/` folder, and run:
 
 ```
 android-localization-helper
 ```
 
-As in the [sample output](./sample_output), the script will create a directory called **to_translate** with files for the strings that need to translated in each language.  If a language has translations for all the strings in the default language, then it won't get an output file.  Now you know exactly what translations you need to add for each language, and you can send them out for translation.
+The script creates a directory called `to_translate/` ([sample output](./sample_output)) with separate files for the missing strings in each language.  This way you know exactly what translations you need to add for each language, and they are already in a standard format to send out for translation!
 
-You can change the output folder
+
+You can change the output folder:
 ```
 android-localization-helper --output ~/Desktop/to_translate
 ```
-
+  
+  
 And you can clean up your localized `strings.xml` files. This will remove strings that aren't in the default file and sort strings to match the default `strings.xml` order. **Warning:** *this will change your existing localized `strings.xml` files, so make sure you have a back-up in case of any unexpected changes*
 ```
 android-localization-helper --clean
@@ -71,6 +73,6 @@ Clean the existing `string.xml` files for each language.  This will remove strin
 
 
 ## Release History
+* 2015-01-05   v0.1.2   support for more language folders, better feedback and error handling
 * 2015-01-04   v0.1.1   xliff namespace support, better indentation handling
 * 2015-01-03   v0.1.0   Initial release
-
