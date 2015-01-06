@@ -154,22 +154,14 @@ def intersection(a, b):
     """Intersection of sets A and B
     Don't use Python's set method since we care about the order
     """
-    inter = []
-    for el in a:
-        if el in b:
-            inter.append(el)
-    return inter
+    return [el for el in a if el in b]
 
 
 def difference(a, b):
     """Result set of A - B
     Don't use Python's set method since we care about the order
     """
-    diff = []
-    for el in a:
-        if el not in b:
-            diff.append(el)
-    return diff
+    return [el for el in a if el not in b]
 
 
 def getTagByKeyName(tags, key):
