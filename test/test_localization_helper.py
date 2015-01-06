@@ -103,19 +103,19 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
                         './test/test_cleaned/res/values-zh-rTW/strings.xml'))
 
     def test_intersection(self):
-        self.assertEquals(localizr.intersection([],[]), [])
-        self.assertEquals(localizr.intersection(['a'],[]), [])
-        self.assertEquals(localizr.intersection([],['a']), [])
-        self.assertEquals(localizr.intersection(['a'],['b']), [])
-        self.assertEquals(localizr.intersection(['a'],['a']), ['a'])
-        self.assertEquals(localizr.intersection(['b', 'a'],['a']), ['a'])
+        self.assertEquals(localizr.intersection([], []), [])
+        self.assertEquals(localizr.intersection(['a'], []), [])
+        self.assertEquals(localizr.intersection([], ['a']), [])
+        self.assertEquals(localizr.intersection(['a'], ['b']), [])
+        self.assertEquals(localizr.intersection(['a'], ['a']), ['a'])
+        self.assertEquals(localizr.intersection(['b', 'a'], ['a']), ['a'])
 
     def test_difference(self):
-        self.assertEquals(localizr.difference([],[]), [])
-        self.assertEquals(localizr.difference(['a'],[]), ['a'])
-        self.assertEquals(localizr.difference([],['a']), [])
-        self.assertEquals(localizr.difference(['a'],['a']), [])
-        self.assertEquals(localizr.difference(['b', 'a'],['a']), ['b'])
+        self.assertEquals(localizr.difference([], []), [])
+        self.assertEquals(localizr.difference(['a'], []), ['a'])
+        self.assertEquals(localizr.difference([], ['a']), [])
+        self.assertEquals(localizr.difference(['a'], ['a']), [])
+        self.assertEquals(localizr.difference(['b', 'a'], ['a']), ['b'])
 
     def test_getTagByKeyName(self):
         tags = localizr.getTagsFromTree(self.tree)

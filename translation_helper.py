@@ -38,8 +38,12 @@ def main():
     keys = getKeysFromTree(tree)
     tags = getTagsFromTree(tree)
 
+    print('Found %d strings in the default language' % len(keys))
+
     # get the languages that we want to translate to
     langs = getLangsFromDir(res_path)
+
+    print('Found translations for: %s' % ', '.join(langs))
 
     # look for missing keys in each language string file
     missing = findMissingKeys(keys, langs, res_path)
@@ -51,6 +55,8 @@ def main():
     # write files for missing keys for each language
     createOutputDir(out_path)
     writeMissingKeysToFiles(langs, tags, missing, out_path)
+
+    print('Saved missings strings to: %s' % out_path)
 
 
 def parseArgs():
@@ -76,7 +82,11 @@ def parseArgs():
 
 def getDefaultTree(res_path):
     os.chdir(res_path)
-    os.chdir('values')
+    if os.path.exists('values'):
+        os.chdir('values')
+    else:
+        sys.exit('Could not find values/ ... '
+                 'Are you in your res/ folder?')
     ET.register_namespace('tools', "http://schemas.android.com/tools")
     ET.register_namespace('xliff', "urn:oasis:names:tc:xliff:document:1.2")
     return ET.parse('strings.xml')
@@ -114,7 +124,10 @@ def getLanguageTrees(langs, res_path):
     for lang in langs:
         os.chdir(res_path)
         os.chdir('values-' + lang)
-        trees[lang] = ET.parse('strings.xml')
+        if os.path.exists('strings.xml'):
+            trees[lang] = ET.parse('strings.xml')
+        else:
+            print('Could not find strings.xml file for %s... skipping' % lang)
     return trees
 
 
@@ -207,7 +220,7 @@ def getLangDir(dir_name):
     if dir_name[2:].startswith('values-'):
         code = [dir_name[9:]][0]
         if (len(code) == 2) or (len(code) == 5 and code[2] == '-') \
-                            or (len(code) == 6 and code[2] == '-'):
+                or (len(code) == 6 and code[2] == '-'):
             return code
 
     # not a language dir
