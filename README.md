@@ -7,9 +7,13 @@
 [downloads-url]: https://pypi.python.org/pypi/android-localization-helper/
 [downloads-image]: https://pypip.in/d/android-localization-helper/badge.svg
 
+[arsenal-url]: https://android-arsenal.com/details/1/1367
+[arsenal-image]: https://img.shields.io/badge/Android%20Arsenal-android--localization--helper-brightgreen.svg?style=flat
+
 [![Travis build image][travis-build-image]][travis-url]
 [![PyPi version][pypi-image]][pypi-url]
 [![PyPi download count image][downloads-image]][downloads-url]
+[![Android Arsenal][arsenal-image]](arsenal-url)
 
 android-localization-helper
 ===========================
