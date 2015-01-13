@@ -13,7 +13,7 @@
 [![Travis build image][travis-build-image]][travis-url]
 [![PyPi version][pypi-image]][pypi-url]
 [![PyPi download count image][downloads-image]][downloads-url]
-[![Android Arsenal][arsenal-image]](arsenal-url)
+[![Android Arsenal][arsenal-image]][arsenal-url]
 
 android-localization-helper
 ===========================
