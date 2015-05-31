@@ -75,7 +75,7 @@ def parseArgs():
     # parse arguments and do error checking
     parser = argparse.ArgumentParser()
     parser.add_argument('--res',
-                        help='Path to the app\'s /res directory. If not '
+                        help='Path to the app\'s res/ directory. If not '
                         'specifies it assumes current directory',
                         default='.')
     parser.add_argument('--input',
