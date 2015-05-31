@@ -1,8 +1,12 @@
 [run]
+branch = True
 omit =
     */python?.?/*
     */site-packages/nose/*
+    */test/*
 [report]
+branch = True
 omit =
     */python?.?/*
     */site-packages/nose/*
+    */test/*
