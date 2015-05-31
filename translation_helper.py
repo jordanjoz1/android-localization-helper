@@ -37,8 +37,9 @@ def main():
 
     # verify that res directory path exists
     if not os.path.exists(res_path):
-        sys.exit('Error: Could not find res/ directory. Either re-run this command '
-            'within your res/ directory or use --res to specify a path')
+        sys.exit('Error: Could not find res/ directory. Either re-run this '
+                 ' command within your res/ directory or use --res to '
+                 'specify a path')
 
     # go to the resource directory and save the whole path
     os.chdir(res_path)
