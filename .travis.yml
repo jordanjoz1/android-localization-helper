@@ -10,3 +10,5 @@ install:
   - pip install coveralls
 # command to run tests
 script: nosetests  --with-coverage --cover-package=translation_helper
+after_success:
+  - coveralls --verbose
