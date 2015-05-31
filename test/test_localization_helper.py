@@ -7,8 +7,6 @@ import filecmp
 
 class TestLocalizationHelperFunctions(unittest.TestCase):
 
-    
-
     def setUp(self):
         # constants
         self.LANGS = ['de', 'es', 'fr', 'zh-rTW']
@@ -19,15 +17,20 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         # get absolute path to resource directory
         self.res_path = os.path.abspath('./test/res')
 
-        # default strings file name 
+        # default strings file name
         self.DEFAULT_STRINGS_FILE = 'strings.xml'
 
-        # get default strings tree
-        self.tree = localizr.getDefaultTree(self.res_path, self.DEFAULT_STRINGS_FILE)
-
+        # get default strings tree with only strings.xml
+        self.tree = localizr.getDefaultTree(self.res_path,
+                                            self.DEFAULT_STRINGS_FILE)
 
     def tearDown(self):
         os.chdir(self.cwd)
+
+    def test_getDefaultTrees(self):
+        trees = localizr.getDefaultTrees(self.res_path,
+                                         ['strings.xml', 'plurals.xml'])
+        self.assertEquals(2, len(trees))
 
     def test_writeOutMissingStrings(self):
         # get tags from default tree so we know what to write out
