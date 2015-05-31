@@ -10,10 +10,16 @@
 [arsenal-url]: https://android-arsenal.com/details/1/1367
 [arsenal-image]: https://img.shields.io/badge/Android%20Arsenal-android--localization--helper-brightgreen.svg?style=flat
 
+[codeclimate-url]: https://codeclimate.com/github/jordanjoz1/android-localization-helper
+[codeclimate-image]: https://codeclimate.com/github/jordanjoz1/android-localization-helper/badges/gpa.svg
+
+
 [![Travis build image][travis-build-image]][travis-url]
 [![PyPi version][pypi-image]][pypi-url]
 [![PyPi download count image][downloads-image]][downloads-url]
 [![Android Arsenal][arsenal-image]][arsenal-url]
+[![Code Climate][codeclimate-image]][codeclimate-url]
+
 
 android-localization-helper
 ===========================
