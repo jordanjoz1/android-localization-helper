@@ -11,4 +11,4 @@ install:
 # command to run tests
 script: nosetests  --with-coverage --cover-package=translation_helper
 after_success:
-  coveralls
+  - coveralls
