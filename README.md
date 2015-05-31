@@ -20,7 +20,9 @@ android-localization-helper
 
 Python script that checks for missing string translations in your project's localized languages.
 
-If you're like us at [DoubleDutch](doubledutch.me), you occassionally lose track of what strings have and haven't been translated in each language.  Android Studio [made an awesome GUI](http://tools.android.com/recent/androidstudio087released) to help deal with this issue, but there is no easy way to export missing strings, so if you are missing more than a few strings in a language it can become a tenuous problem.
+Ever lose track of what strings have and haven't been translated in each language? Android Studio [made an awesome GUI](http://tools.android.com/recent/androidstudio087released) to help deal with this issue, but there is no easy way to export missing strings, so if you are missing more than a few strings in a language it can become a tenuous problem. Here's a solution!
+
+This python package will output a directory with all the string translations that are missing for each localized values directory. It can also clean-up localized `strings.xml` to remove translations that are no longer used in the default `strings.xml` file.
 
 
 ## Getting started
@@ -37,22 +39,24 @@ pip install android-localization-helper
 ```
 
 ## Usage
-`cd` to your `res/` folder, and run:
+`cd` into your `res/` folder, and run:
 
 ```
 android-localization-helper
 ```
 
-The script creates a directory called `to_translate/` ([sample output](./sample_output)) with separate files for the missing strings in each language.  This way you know exactly what translations you need to add for each language, and they are already in a standard format to send out for translation!
+By default, this creates an output directory `to_translate/` ([sample output](./sample_output)) with separate files for the missing strings in each language. Now that you have the untranslated strings for each language in a standard format, you can [send them out for translation](https://developer.android.com/distribute/tools/localization-checklist.html#gp-trans)!
 
+#### Change output directory (--output)
+Use the output option to change the output directory path
 
-You can change the output folder:
 ```
 android-localization-helper --output ~/Desktop/to_translate
 ```
   
+#### Clean-up translated string files (--clean)
   
-And you can clean up your localized `strings.xml` files. This will remove strings that aren't in the default file and sort strings to match the default `strings.xml` order. **Warning:** *this will change your existing localized `strings.xml` files, so make sure you have a back-up in case of any unexpected changes*
+This option will remove strings that aren't in the default file and sort strings to match the default `strings.xml` order. **Warning:** *this will overwrite your existing localized `strings.xml` files, so make sure you have a back-up in case of any unexpected changes*
 ```
 android-localization-helper --clean
 ```
@@ -67,6 +71,9 @@ Path to the app's /res folder. Like, `./main/res`
 
 By default assumes the current directory
 
+#### --input
+List of file names to include from default values directory (e.g. *strings.xml* *plurals.xml*). By default, only *strings.xml* is used
+
 #### --output
 Output directory path (directory will be created automatically). Like, `~/Desktop/to_translate`
 
@@ -77,6 +84,11 @@ Clean the existing `string.xml` files for each language.  This will remove strin
 
 
 ## Release History
+* 2015-05-31   v0.1.3   support for multiple default string sources
 * 2015-01-05   v0.1.2   support for more language folders, better feedback and error handling
 * 2015-01-04   v0.1.1   xliff namespace support, better indentation handling
 * 2015-01-03   v0.1.0   Initial release
+
+## License
+
+See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
