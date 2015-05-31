@@ -7,6 +7,8 @@ import filecmp
 
 class TestLocalizationHelperFunctions(unittest.TestCase):
 
+    
+
     def setUp(self):
         # constants
         self.LANGS = ['de', 'es', 'fr', 'zh-rTW']
@@ -17,8 +19,12 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         # get absolute path to resource directory
         self.res_path = os.path.abspath('./test/res')
 
+        # default strings file name 
+        self.DEFAULT_STRINGS_FILE = 'strings.xml'
+
         # get default strings tree
-        self.tree = localizr.getDefaultTree(self.res_path)
+        self.tree = localizr.getDefaultTree(self.res_path, self.DEFAULT_STRINGS_FILE)
+
 
     def tearDown(self):
         os.chdir(self.cwd)

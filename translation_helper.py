@@ -22,21 +22,32 @@ import codecs
 import argparse
 
 ORIG_DIR = os.getcwd()
+DEFAULT_VALUES_DIR = 'values'
+DEFAULT_STRING_FILE = 'strings.xml'
+TRANS_STRING_FILE = 'strings.xml'
 
 
 def main():
 
     # parse command line arguments
-    res_path, clean, out_path = parseArgs()
+    res_path, clean, out_path, inputs = parseArgs()
+    if not inputs:
+        inputs = [DEFAULT_STRING_FILE]
+    print('Using %s for default string file(s)' % inputs)
+
+    # verify that res directory path exists
+    if not os.path.exists(res_path):
+        sys.exit('Error: Could not find res/ directory. Either re-run this command '
+            'within your res/ directory or use --res to specify a path')
 
     # go to the resource directory and save the whole path
     os.chdir(res_path)
     res_path = os.getcwd()
 
     # get default keys
-    tree = getDefaultTree(res_path)
-    keys = getKeysFromTree(tree)
-    tags = getTagsFromTree(tree)
+    trees = getDefaultTrees(res_path, inputs)
+    keys = getKeysFromTrees(trees)
+    tags = getTagsFromTrees(trees)
 
     print('Found %d strings in the default language' % len(keys))
 
@@ -66,6 +77,11 @@ def parseArgs():
                         help='Path to the app\'s /res directory. If not '
                         'specifies it assumes current directory',
                         default='.')
+    parser.add_argument('--input',
+                        nargs='+',
+                        help='String files to include from default values '
+                        'dir (e.g. strings.xml plurals.xml). By default, '
+                        'only strings.xml is used')
     parser.add_argument('--output',
                         help='Path to the output directory. If not specifies '
                         'it will create a folder called to_translate in the '
@@ -77,19 +93,29 @@ def parseArgs():
                         'ordering',
                         action="store_true")
     args = parser.parse_args()
-    return args.res, args.clean, args.output
+    return args.res, args.clean, args.output, args.input
 
 
-def getDefaultTree(res_path):
+def getDefaultTrees(res_path, flist):
+    trees = []
+    for name in flist:
+        trees.append(getDefaultTree(res_path, name))
+    return trees
+
+
+def getDefaultTree(res_path, fname):
     os.chdir(res_path)
-    if os.path.exists('values'):
-        os.chdir('values')
+    if os.path.exists(DEFAULT_VALUES_DIR):
+        os.chdir(DEFAULT_VALUES_DIR)
     else:
-        sys.exit('Could not find values/ ... '
-                 'Are you in your res/ folder?')
+        sys.exit('Error: Cannot find %s/ ... '
+                 'Are you in your res/ folder?' % DEFAULT_VALUES_DIR)
     ET.register_namespace('tools', "http://schemas.android.com/tools")
     ET.register_namespace('xliff', "urn:oasis:names:tc:xliff:document:1.2")
-    return ET.parse('strings.xml')
+    if os.path.isfile(fname):
+        return ET.parse(fname)
+    else:
+        sys.exit('Error: Cannot find file %s in %s' % (fname, res_path))
 
 
 def createOutputDir(out_path):
@@ -124,10 +150,8 @@ def getLanguageTrees(langs, res_path):
     for lang in langs:
         os.chdir(res_path)
         os.chdir('values-' + lang)
-        if os.path.exists('strings.xml'):
-            trees[lang] = ET.parse('strings.xml')
-        else:
-            print('Could not find strings.xml file for %s... skipping' % lang)
+        if os.path.exists(TRANS_STRING_FILE):
+            trees[lang] = ET.parse(TRANS_STRING_FILE)
     return trees
 
 
@@ -146,7 +170,7 @@ def cleanTranslationFiles(langs, keys, res_path):
         # write out file
         os.chdir(res_path)
         os.chdir('values-%s' % (lang))
-        f = codecs.open('strings.xml', 'wb', 'utf-8')
+        f = codecs.open(TRANS_STRING_FILE, 'wb', 'utf-8')
         f.write(prettify(root))
 
 
@@ -229,6 +253,13 @@ def getLangsFromDir(res_path):
     return langs
 
 
+def getKeysFromTrees(trees):
+    keys = []
+    for tree in trees:
+        keys += getKeysFromTree(tree)
+    return keys
+
+
 def getKeysFromTree(tree):
     root = tree.getroot()
     keys = []
@@ -243,12 +274,19 @@ def getKeysFromTree(tree):
     return keys
 
 
+def getTagsFromTrees(trees):
+    tags = []
+    for tree in trees:
+        tags += getTagsFromTree(tree)
+    return tags
+
+
 def getTagsFromTree(tree):
     root = tree.getroot()
-    keys = []
+    tags = []
     for child in root:
-        keys.append(child)
-    return keys
+        tags.append(child)
+    return tags
 
 
 if __name__ == '__main__':
