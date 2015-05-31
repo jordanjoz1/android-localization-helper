@@ -39,6 +39,9 @@ pip install android-localization-helper
 ```
 
 ## Usage
+
+#### Normal use
+
 `cd` into your `res/` folder, and run:
 
 ```
@@ -48,7 +51,9 @@ android-localization-helper
 By default, this creates an output directory `to_translate/` ([sample output](./sample_output)) with separate files for the missing strings in each language. Now that you have the untranslated strings for each language in a standard format, you can [send them out for translation](https://developer.android.com/distribute/tools/localization-checklist.html#gp-trans)!
 
 #### Change output directory (--output)
-Use the output option to change the output directory path
+Use the output option to change the output directory path. 
+
+For example, we can output the missing translations into a `to_translate/` directory on the Desktop:
 
 ```
 android-localization-helper --output ~/Desktop/to_translate
@@ -59,6 +64,16 @@ android-localization-helper --output ~/Desktop/to_translate
 This option will remove strings that aren't in the default file and sort strings to match the default `strings.xml` order. **Warning:** *this will overwrite your existing localized `strings.xml` files, so make sure you have a back-up in case of any unexpected changes*
 ```
 android-localization-helper --clean
+```
+
+#### Use multiple default string sources (--input)
+  
+It is recommended that all your translatable strings are in `strings.xml`. If that's not the case, the input option will allow you to include multiple default string source files. The localized output will still have only one file for each language. 
+
+For example, if we had `strings.xml` and `plurals.xml` files in our `values/` directory, we could make sure those are included as part of our default string source:
+
+```
+android-localization-helper --input strings.xml plurals.xml
 ```
 
 ### Options
