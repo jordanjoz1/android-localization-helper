@@ -1,8 +1,8 @@
 [travis-url]: http://travis-ci.org/#!/jordanjoz1/android-localization-helper
 [travis-build-image]: https://secure.travis-ci.org/jordanjoz1/android-localization-helper.svg
 
-[coveralls-url]: https://coveralls.io/r/jordanjoz1/android-localization-helper?branch=add_coveralls
-[coveralls-image]: https://coveralls.io/repos/jordanjoz1/android-localization-helper/badge.svg?branch=add_coveralls
+[coveralls-url]: https://coveralls.io/r/jordanjoz1/android-localization-helper
+[coveralls-image]: https://coveralls.io/repos/jordanjoz1/android-localization-helper/badge.svg
 
 [pypi-url]: https://badge.fury.io/py/android-localization-helper
 [pypi-image]: https://badge.fury.io/py/android-localization-helper.svg
