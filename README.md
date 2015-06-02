@@ -5,7 +5,7 @@
 [pypi-image]: https://badge.fury.io/py/android-localization-helper.svg
 
 [downloads-url]: https://pypi.python.org/pypi/android-localization-helper/
-[downloads-image]: https://pypip.in/d/android-localization-helper/badge.svg
+[downloads-image]: https://img.shields.io/pypi/dm/android-localization-helper.svg
 
 [arsenal-url]: https://android-arsenal.com/details/1/1367
 [arsenal-image]: https://img.shields.io/badge/Android%20Arsenal-android--localization--helper-brightgreen.svg?style=flat
