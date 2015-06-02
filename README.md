@@ -1,19 +1,28 @@
 [travis-url]: http://travis-ci.org/#!/jordanjoz1/android-localization-helper
 [travis-build-image]: https://secure.travis-ci.org/jordanjoz1/android-localization-helper.svg
 
+[coveralls-url]: https://coveralls.io/r/jordanjoz1/android-localization-helper?branch=add_coveralls
+[coveralls-image]: https://coveralls.io/repos/jordanjoz1/android-localization-helper/badge.svg?branch=add_coveralls
+
 [pypi-url]: https://badge.fury.io/py/android-localization-helper
 [pypi-image]: https://badge.fury.io/py/android-localization-helper.svg
 
 [arsenal-url]: https://android-arsenal.com/details/1/1367
 [arsenal-image]: https://img.shields.io/badge/Android%20Arsenal-android--localization--helper-brightgreen.svg?style=flat
 
-[coveralls-url]: https://coveralls.io/r/jordanjoz1/android-localization-helper?branch=add_coveralls
-[coveralls-image]: https://coveralls.io/repos/jordanjoz1/android-localization-helper/badge.svg?branch=add_coveralls
+[downloads-url]: https://pypi.python.org/pypi/android-localization-helper/
+[downloads-image]: https://img.shields.io/pypi/dm/android-localization-helper.svg
+
+[codeclimate-url]: https://codeclimate.com/github/jordanjoz1/android-localization-helper
+[codeclimate-image]: https://codeclimate.com/github/jordanjoz1/android-localization-helper/badges/gpa.svg
 
 [![Travis build image][travis-build-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
 [![PyPi version][pypi-image]][pypi-url]
+[![PyPi download count image][downloads-image]][downloads-url]
 [![Android Arsenal][arsenal-image]][arsenal-url]
+[![Code Climate][codeclimate-image]][codeclimate-url]
+
 
 android-localization-helper
 ===========================
@@ -39,6 +48,9 @@ pip install android-localization-helper
 ```
 
 ## Usage
+
+#### Normal use
+
 `cd` into your `res/` folder, and run:
 
 ```
@@ -48,7 +60,9 @@ android-localization-helper
 By default, this creates an output directory `to_translate/` ([sample output](./sample_output)) with separate files for the missing strings in each language. Now that you have the untranslated strings for each language in a standard format, you can [send them out for translation](https://developer.android.com/distribute/tools/localization-checklist.html#gp-trans)!
 
 #### Change output directory (--output)
-Use the output option to change the output directory path
+Use the output option to change the output directory path. 
+
+For example, we can output the missing translations into a `to_translate/` directory on the Desktop:
 
 ```
 android-localization-helper --output ~/Desktop/to_translate
@@ -59,6 +73,16 @@ android-localization-helper --output ~/Desktop/to_translate
 This option will remove strings that aren't in the default file and sort strings to match the default `strings.xml` order. **Warning:** *this will overwrite your existing localized `strings.xml` files, so make sure you have a back-up in case of any unexpected changes*
 ```
 android-localization-helper --clean
+```
+
+#### Use multiple default string sources (--input)
+  
+It is recommended that all your translatable strings are in `strings.xml`. If that's not the case, the input option will allow you to include multiple default string source files. The localized output will still have only one file for each language. 
+
+For example, if we had `strings.xml` and `plurals.xml` files in our `values/` directory, we could make sure those are included as part of our default string source:
+
+```
+android-localization-helper --input strings.xml plurals.xml
 ```
 
 ### Options

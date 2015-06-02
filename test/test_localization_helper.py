@@ -23,9 +23,22 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         # get default strings tree with only strings.xml
         self.tree = localizr.getDefaultTree(self.res_path,
                                             self.DEFAULT_STRINGS_FILE)
+        self.treePlurals = localizr.getDefaultTree(self.res_path,
+                                                   'plurals.xml')
 
     def tearDown(self):
         os.chdir(self.cwd)
+
+    def test_parseArgs(self):
+        res_path_act = '~/Documents/test-app/app/src/main/res/'
+        out_path_act = '~/Desktop/to_translate'
+        res_path, clean, out_path, inputs = localizr.parseArgs(
+            ['--res', res_path_act, '--input', 'strings.xml', 'plurals.xml',
+             '--clean', '--output', out_path_act])
+        self.assertEquals(res_path_act, res_path)
+        self.assertEquals(clean, True)
+        self.assertEquals(out_path_act, out_path)
+        self.assertEquals(inputs, ['strings.xml', 'plurals.xml'])
 
     def test_getDefaultTrees(self):
         trees = localizr.getDefaultTrees(self.res_path,
@@ -172,18 +185,25 @@ class TestLocalizationHelperFunctions(unittest.TestCase):
         langs = localizr.getLangsFromDir(self.res_path)
         self.assertEqual(set(langs), set(self.LANGS))
 
-    def test_getKeyFromTree(self):
-        """
-        keys should not contain providers or strings marked as not translatable
-        """
+    def test_getKeysFromTrees(self):
         keys = localizr.getKeysFromTree(self.tree)
         self.assertEqual(keys, ['test_1', 'test_2', 'test_3', 'test_4',
                                 'test_5', 'plurals_test'])
+
+    def test_getKeysFromTree(self):
+        keys = localizr.getKeysFromTrees([self.tree, self.treePlurals])
+        self.assertEqual(keys, ['test_1', 'test_2', 'test_3', 'test_4',
+                                'test_5', 'plurals_test', 'plurals_test2'])
 
     def test_getTagsFromTree(self):
         tags = localizr.getTagsFromTree(self.tree)
         # should return all seven tags
         self.assertEqual(len(tags), 8)
+
+    def test_getTagsFromTrees(self):
+        tags = localizr.getTagsFromTrees([self.tree, self.treePlurals])
+        # should return all seven tags
+        self.assertEqual(len(tags), 9)
 
 
 if __name__ == '__main__':
