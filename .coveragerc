@@ -1,0 +1,10 @@
+[run]
+omit =
+    */python?.?/*
+    */site-packages/nose/*
+    */test/*
+[report]
+omit =
+    */python?.?/*
+    */site-packages/nose/*
+    */test/*
