@@ -30,7 +30,7 @@ TRANS_STRING_FILE = 'strings.xml'
 def main():
 
     # parse command line arguments
-    res_path, clean, out_path, inputs = parseArgs(sys.argv)
+    res_path, clean, out_path, inputs = parseArgs()
     if not inputs:
         inputs = [DEFAULT_STRING_FILE]
     print('Using %s for default string file(s)' % inputs)
@@ -71,7 +71,7 @@ def main():
     print('Saved missings strings to: %s' % out_path)
 
 
-def parseArgs(args):
+def parseArgs(args=None):
     # parse arguments and do error checking
     parser = argparse.ArgumentParser()
     parser.add_argument('--res',
@@ -93,7 +93,7 @@ def parseArgs(args):
                         'translation files to match the default string '
                         'ordering',
                         action="store_true")
-    args = parser.parse_args(args)
+    args = parser.parse_args(args) if args is not None else parser.parse_args()
     return args.res, args.clean, args.output, args.input
 
 
