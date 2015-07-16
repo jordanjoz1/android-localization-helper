@@ -191,7 +191,7 @@ def difference(a, b):
 
 def getTagByKeyName(tags, key):
     for tag in tags:
-        if tag.get('name') == key:
+        if (tag.tag, tag.get('name')) == key:
             return tag
 
 
@@ -271,7 +271,7 @@ def getKeysFromTree(tree):
         # ignore providers
         if (child.get('name').startswith('provider.')):
             continue
-        keys.append(child.get('name'))
+        keys.append((child.tag, child.get('name')))
     return keys
 
 
