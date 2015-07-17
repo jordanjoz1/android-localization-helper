@@ -108,6 +108,7 @@ Clean the existing `string.xml` files for each language.  This will remove strin
 
 
 ## Release History
+* 2015-07-16   v0.1.4   fix handling same resource name across multiple times
 * 2015-05-31   v0.1.3   support for multiple default string sources
 * 2015-01-05   v0.1.2   support for more language folders, better feedback and error handling
 * 2015-01-04   v0.1.1   xliff namespace support, better indentation handling
